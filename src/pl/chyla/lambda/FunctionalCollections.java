@@ -6,10 +6,10 @@ import java.util.Random;
 
 
 
-public class FunctionalCollections {
+public class FunctionalCollections implements Runnable {
   static Random R = new Random(123123);
 
-  public static void main(String[] args) {
+  public void run() {
 
     String[] workers = new String[] {
         "Marcus Widner",
