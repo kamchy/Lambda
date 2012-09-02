@@ -8,7 +8,8 @@ JAVA = $(JAVA_BIN)/java
 CLASSES = \
 	$(SRC)/FunctionalCollections.java \
 	$(SRC)/Main.java \
-	$(SRC)/sam/Factory.java
+	$(SRC)/sam/Factory.java \
+	$(SRC)/Closure.java
 
 .SUFFIXES: .java .class
 .java.class:
@@ -17,6 +18,9 @@ CLASSES = \
 default: classes
 
 classes: $(CLASSES:.java=.class)
+
+run: classes
+	$(JAVA) -cp $(OUT_DIR) pl.chyla.lambda.Main
 
 clean:
 	$(RM) *.class

@@ -22,7 +22,6 @@ public class FunctionalCollections implements Runnable {
 
     List<Worker> workersList = prepareWorkersWithScores(workers);
     float passingScore = 0.25F;
-
     printAll(workersList);
     printWorkersScoreRaport(workersList, passingScore);
   }
@@ -33,8 +32,8 @@ public class FunctionalCollections implements Runnable {
 
   private static void printWorkersScoreRaport(List<Worker> workersList, float passingScore) {
     workersList
-      .filter(w -> w.getScore() > passingScore) // MapStream Boolean->Iterable<Worker>
-      .forEach(w -> {Worker.printMessage(w, true);});
+      .filter(w -> w.getScore() > passingScore) 
+      .forEach(w -> {Raport.printMessage(w, true);});
 
   }
 
@@ -47,9 +46,20 @@ public class FunctionalCollections implements Runnable {
   }
 
 
-  public static final class Worker {
+  public static final class Raport {
     private static final String PASSED = "YES! %s, you passed with %s!";
     private static final String NOT_PASSED = "Uuuuu! %s, you havent passed with %s...";
+    public static void printMessage(Worker w, boolean passed) {
+      String message = String.format( passed ? PASSED : NOT_PASSED, w.fName, w.score);
+      System.out.println(message);
+    }
+
+    public static void raport(boolean pass, Collection<Worker> workers) {
+      System.out.format((pass ? "" : "NOT ") + "PASSED: %s", pass, workers.size());
+    }
+  }
+
+  public static final class Worker {
     private String lName;
     private String fName;
     private float score;
@@ -75,13 +85,5 @@ public class FunctionalCollections implements Runnable {
       return String.format("[%s,  %s] - %f", lName, fName, score);
     }
 
-    public static void printMessage(Worker w, boolean passed) {
-      String message = String.format( passed ? PASSED : NOT_PASSED, w.fName, w.score);
-      System.out.println(message);
-    }
-
-    public static void raport(boolean pass, Collection<Worker> workers) {
-      System.out.format((pass ? "" : "NOT ") + "PASSED: %s", pass, workers.size());
-    }
   }
 }
